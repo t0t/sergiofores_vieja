@@ -11,52 +11,48 @@ animate();
 
 function init() {
   camera = new THREE.PerspectiveCamera(
-    50,
+    5,
     window.innerWidth / window.innerHeight,
-    1,
+    3,
     3500
   );
-  camera.position.set(5, 15, 10);
+  camera.position.set(10, 5, 10);
 
   //
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0xfeff9f);
-  scene.fog = new THREE.Fog(0x000000, 17, 1);
 
   // Ground
 
   const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(80, 80),
+    new THREE.PlaneGeometry(2, 2),
     new THREE.MeshPhongMaterial({
-      color: 0x2bc4a9,
-      specular: 0x111111,
-      shininess: 100,
+      color: 0xFF6874,
+      specular: 0x2bc4a9,
+      shininess: 50,
     })
   );
-
   plane.rotation.x = -Math.PI / 2;
-  plane.position.y = -1.5;
+  plane.position.y = -0.07;
+  plane.receiveShadow = true;
   scene.add(plane);
 
-  plane.receiveShadow = true;
-
-  // LOADER
+  // 3D Model
 
   const loader = new GLTFLoader().setPath("./3dmodels/");
 
   loader.load("model-4.glb", function (gltf) {
     gltf.scene.traverse(function (child) {
-        console.log(child);
-      
-        const material = new THREE.MeshPhongMaterial({
-          color: 0xff5533,
-          specular: 0x333333,
-          shininess: 100
-        });
-      
+        // console.log(child);
+        child.castShadow = true;
+        child.doubleSided = true;
     });
+    gltf.scene.scale.x = 0.05;
+    gltf.scene.scale.y = 0.05;
+    gltf.scene.scale.z = 0.05;
 
+    console.log(gltf.scene);
     scene.add(gltf.scene);
   });
 
@@ -66,10 +62,10 @@ function init() {
 
   // LIGHTS
 
-  const light = new THREE.HemisphereLight(0x443333, 0x111122);
+  const light = new THREE.HemisphereLight(0xffffff, 0x111122);
   scene.add(light);
-  addShadowedLight(0.5, 0.5, 1, 0xffffff, 2);
-  addShadowedLight(0.6, 1, 3, 0x9f9fff, 2);
+  addShadowedLight(0.05, 0.1, 1, 0x9F9FFF, 2.5);
+  addShadowedLight(0.2, 0.9, 3, 0xffffff, 1.5);
 
   // RENDERER
 
@@ -88,7 +84,7 @@ function init() {
   controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
   controls.dampingFactor = 0.01;
   controls.screenSpacePanning = true;
-  controls.maxPolarAngle = Math.PI / 2;
+  controls.maxPolarAngle = Math.PI / 2.1;
     // controls.autoRotate = true;
   // controls.enabled = false;
 

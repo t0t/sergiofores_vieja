@@ -371,3 +371,26 @@ button {
   .slider.round:before {
 	border-radius: 50%;
   }
+
+
+/* LOGO */
+.logo {
+	width: var(--size-6);
+	transition: transform 1s;
+}
+
+.logo:hover {
+	transform: rotate(360deg) scale(1.3);
+	transition: transform 1s;
+}
+
+.logo circle {
+	stroke: var(--black-color);
+	stroke-width: 1px;
+	fill: none;
+}
+
+
+  /* input[type="checkbox"]:checked {
+	cursor: grab;
+   } */
