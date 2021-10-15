@@ -1,7 +1,7 @@
 import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.133.1-dCIBIz3pnzocx0lNrLHe/mode=imports/optimized/three.js';
 
-import Stats from '../three.js-master/examples/jsm/libs/stats.module.js';
-import { GUI } from '../three.js-master/examples/jsm/libs/dat.gui.module.js';
+// import Stats from '../three.js-master/examples/jsm/libs/stats.module.js';
+// import { GUI } from '../three.js-master/examples/jsm/libs/dat.gui.module.js';
 
 let camera, scene, renderer, stats;
 
@@ -110,13 +110,13 @@ function init() {
 
     //
 
-    stats = new Stats();
-    document.body.appendChild( stats.dom );
+    // stats = new Stats();
+    // document.body.appendChild( stats.dom );
 
     //
 
-    const gui = new GUI();
-    gui.add( material, 'wireframe' );
+    // const gui = new GUI();
+    // gui.add( material, 'wireframe' );
 
     //
 
@@ -140,7 +140,7 @@ function animate() {
     requestAnimationFrame( animate );
 
     render();
-    stats.update();
+    // stats.update();
 
 }
 

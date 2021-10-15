@@ -184,6 +184,9 @@ main {
 }
 
 header {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	place-items: center;
 	background-color: var(--quaternary-color);
 }
 
@@ -206,7 +209,13 @@ small {
 	font-size: var(--size-0);
 }
 
-
+footer {
+	color: var(--black-color);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	place-items: center;
+	background-color: var(--grey-color);
+}
 footer svg {
 	width: var(--size-2);
 }
