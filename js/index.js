@@ -1,92 +1,124 @@
-// Find the latest version by visiting https://cdn.skypack.dev/three.
-// import * as THREE from "https://cdn.skypack.dev/pin/three@v0.133.1-dCIBIz3pnzocx0lNrLHe/mode=imports/optimized/three.js";
-// import * as THREE from "../three.js-master/src/Three.js";
-
 import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.133.1-dCIBIz3pnzocx0lNrLHe/mode=imports/optimized/three.js';
 
-// import three from 'https://cdn.skypack.dev/three';
+import Stats from '../three.js-master/examples/jsm/libs/stats.module.js';
+import { GUI } from '../three.js-master/examples/jsm/libs/dat.gui.module.js';
 
+let camera, scene, renderer, stats;
 
-// import * as THREE from '../three.js-master/build/three.module.js';
-
-    
-import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
-// import { OrbitControls } from 'https://unpkg.com/three@0.133.1/examples/jsm/controls/OrbitControls.js';
-
-
-import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
-import { RGBELoader } from '../three.js-master/examples/jsm/loaders/RGBELoader.js';
-import { RoughnessMipmapper } from '../three.js-master/examples/jsm/utils/RoughnessMipmapper.js';
-
-let camera, scene, renderer;
+let mesh;
 
 init();
-render();
+animate();
 
 function init() {
 
-    const container = document.createElement( 'div' );
-    document.body.appendChild( container );
+    camera = new THREE.PerspectiveCamera( 27, window.innerWidth / window.innerHeight, 1, 3500 );
+    camera.position.z = 64;
 
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 10, 80 );
-    camera.position.set( 1, 9, 1 );
+    //
 
     scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0x2BC4A9 );
 
-    new RGBELoader()
-        .setPath( './3dmodels/' )
-        .load( 'royal_esplanade_1k.hdr', function ( texture ) {
+    //
 
-            texture.mapping = THREE.EquirectangularReflectionMapping;
+    const light = new THREE.HemisphereLight();
+    scene.add( light );
 
-            scene.background = texture;
-            scene.environment = texture;
+    //
 
-            render();
+    const geometry = new THREE.BufferGeometry();
 
-            // model
+    const indices = [];
 
-            // use of RoughnessMipmapper is optional
-            const roughnessMipmapper = new RoughnessMipmapper( renderer );
+    const vertices = [];
+    const normals = [];
+    const colors = [];
 
-            const loader = new GLTFLoader().setPath( './3dmodels/' );
-            loader.load( 'model-4.glb', function ( gltf ) {
+    const size = 20;
+    const segments = 10;
 
-                gltf.scene.traverse( function ( child ) {
+    const halfSize = size / 2;
+    const segmentSize = size / segments;
 
-                    if ( child.isMesh ) {
+    // generate vertices, normals and color data for a simple grid geometry
 
-                        roughnessMipmapper.generateMipmaps( child.material );
+    for ( let i = 0; i <= segments; i ++ ) {
 
-                    }
+        const y = ( i * segmentSize ) - halfSize;
 
-                } );
+        for ( let j = 0; j <= segments; j ++ ) {
 
-                scene.add( gltf.scene );
+            const x = ( j * segmentSize ) - halfSize;
 
-                roughnessMipmapper.dispose();
+            vertices.push( x, - y, 0 );
+            normals.push( 0, 0, 1 );
 
-                render();
+            const r = ( x / size ) + 0.5;
+            const g = ( y / size ) + 0.5;
 
-            } );
+            colors.push( r, g, 1 );
 
-        } );
+        }
+
+    }
+
+    // generate indices (data for element array buffer)
+
+    for ( let i = 0; i < segments; i ++ ) {
+
+        for ( let j = 0; j < segments; j ++ ) {
+
+            const a = i * ( segments + 1 ) + ( j + 1 );
+            const b = i * ( segments + 1 ) + j;
+            const c = ( i + 1 ) * ( segments + 1 ) + j;
+            const d = ( i + 1 ) * ( segments + 1 ) + ( j + 1 );
+
+            // generate two faces (triangles) per iteration
+
+            indices.push( a, b, d ); // face one
+            indices.push( b, c, d ); // face two
+
+        }
+
+    }
+
+    //
+
+    geometry.setIndex( indices );
+    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+    geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
+    geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
+
+    const material = new THREE.MeshPhongMaterial( {
+        side: THREE.DoubleSide,
+        vertexColors: true
+    } );
+
+    mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
+
+    //
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
-    
     renderer.setPixelRatio( window.devicePixelRatio );
+    // renderer.setSize( 350, 200 );
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    container.appendChild( renderer.domElement );
+    
+    // document.body.appendChild( renderer.domElement );
+    document.getElementById("render").appendChild(renderer.domElement);
 
-    const controls = new OrbitControls( camera, renderer.domElement );
-    controls.addEventListener( 'change', render ); // use if there is no animation loop
-    controls.minDistance = 20;
-    controls.maxDistance = 20;
-    controls.target.set( 2, 0.5, - 0.9 );
-    controls.update();
+    //
+
+    stats = new Stats();
+    document.body.appendChild( stats.dom );
+
+    //
+
+    const gui = new GUI();
+    gui.add( material, 'wireframe' );
+
+    //
 
     window.addEventListener( 'resize', onWindowResize );
 
@@ -99,13 +131,25 @@ function onWindowResize() {
 
     renderer.setSize( window.innerWidth, window.innerHeight );
 
-    render();
-
 }
 
 //
 
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    render();
+    stats.update();
+
+}
+
 function render() {
+
+    const time = Date.now() * 0.001;
+
+    mesh.rotation.x = time * 0.25;
+    mesh.rotation.y = time * 0.5;
 
     renderer.render( scene, camera );
 

@@ -145,13 +145,6 @@ html {
 	box-sizing: inherit;
 }
 
-
-
-
-
-
-
-
 :root {
     --primary-color: #FF6874;
     --secondary-color: #2BC4A9;
@@ -168,14 +161,16 @@ html {
 	--size-6: 10.7rem;
 }
 
+#render {}
+
 body {
 	margin: 0;
-	background-color: var(--black-color);
+	background-color: var(--secondary-color);
 	color: var(--grey-color);
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: var(--size-1);
-	line-height: var(--size-2);
-	overscroll-behavior: none;
+	/* line-height: var(--size-2); */
+	/* overscroll-behavior: none; */
 }
 
 html {
@@ -184,25 +179,18 @@ html {
 	font-weight: 300;
 }
 
-body {
-	font-family: sans-serif, arial, helvetica;
-	line-height: 1.7;
-}
-
 main {
 	font-size: var(--size-1);
+}
+
+header {
+	background-color: var(--quaternary-color);
 }
 
 h1 {
 	font-size: var(--size-3);
 	font-weight: var(--negrita);
 	line-height: 1.2;
-}
-@media screen and (max-width: 500px) {
-	h1 {
-		/* color: var(--primary-color); */
-		/* font-weight: 500; */
-	}
 }
 
 h2,
@@ -219,7 +207,7 @@ small {
 }
 
 
-aside svg {
+footer svg {
 	width: var(--size-2);
 }
 h1 {
@@ -240,32 +228,8 @@ button {
 	text-transform: uppercase;
 }
 
-#info {
-	position: absolute;
-	top: 0px;
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	text-align: center;
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	z-index: 1; /* TODO Solve this in HTML */
-}
 
-a, button, input, select {
-	pointer-events: auto;
-}
 
-.dg.ac {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	z-index: 2 !important; /* TODO Solve this in HTML */
-}
 
 .tar {
 	text-align: right;
@@ -322,38 +286,4 @@ a, button, input, select {
 
 .pt-5 {
 	padding-top: var(--size-5);
-}
-
-#overlay {
-	position: absolute;
-	font-size: 16px;
-	z-index: 2;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	background: rgba(0,0,0,0.7);
-}
-
-	#overlay button {
-		background: transparent;
-		border: 0;
-		border: 1px solid rgb(255, 255, 255);
-		border-radius: 4px;
-		color: #ffffff;
-		padding: 12px 18px;
-		text-transform: uppercase;
-		cursor: pointer;
-	}
-
-#notSupported {
-	width: 50%;
-	margin: auto;
-	background-color: var(--primary-color);
-	margin-top: 20px;
-	padding: 10px;
 }
