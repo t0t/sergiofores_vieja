@@ -1,4 +1,5 @@
-import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.133.1-dCIBIz3pnzocx0lNrLHe/mode=imports/optimized/three.js';
+// import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.133.1-dCIBIz3pnzocx0lNrLHe/mode=imports/optimized/three.js';
+import * as THREE from '../three.js-master/build/three.module.js';
 
 import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
