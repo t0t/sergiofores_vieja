@@ -34,7 +34,7 @@ function init() {
     scene = new THREE.Scene();
 
     new RGBELoader()
-        .setPath( '../3dmodels/' )
+        .setPath( './3dmodels/' )
         .load( 'royal_esplanade_1k.hdr', function ( texture ) {
 
             texture.mapping = THREE.EquirectangularReflectionMapping;
