@@ -28,8 +28,8 @@ function init() {
     const container = document.createElement( 'div' );
     document.body.appendChild( container );
 
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
-    camera.position.set( - 1.8, 0.6, 2.7 );
+    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 10, 80 );
+    camera.position.set( 1, 9, 1 );
 
     scene = new THREE.Scene();
 
@@ -73,6 +73,7 @@ function init() {
         } );
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
+    
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -82,9 +83,9 @@ function init() {
 
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.addEventListener( 'change', render ); // use if there is no animation loop
-    controls.minDistance = 2;
-    controls.maxDistance = 10;
-    controls.target.set( 0, 0, - 0.2 );
+    controls.minDistance = 20;
+    controls.maxDistance = 20;
+    controls.target.set( 2, 0.5, - 0.9 );
     controls.update();
 
     window.addEventListener( 'resize', onWindowResize );
