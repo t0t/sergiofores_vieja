@@ -1,126 +1,132 @@
 import * as THREE from 'https://cdn.skypack.dev/pin/three@v0.133.1-dCIBIz3pnzocx0lNrLHe/mode=imports/optimized/three.js';
 
-// import Stats from '../three.js-master/examples/jsm/libs/stats.module.js';
-// import { GUI } from '../three.js-master/examples/jsm/libs/dat.gui.module.js';
+import { GLTFLoader } from '../three.js-master/examples/jsm/loaders/GLTFLoader.js';
+import { OrbitControls } from '../three.js-master/examples/jsm/controls/OrbitControls.js';
 
-let camera, scene, renderer, stats;
-
-let mesh;
+let camera, controls, scene, renderer;
 
 init();
 animate();
 
 function init() {
-
-    camera = new THREE.PerspectiveCamera( 27, window.innerWidth / window.innerHeight, 1, 3500 );
-    camera.position.z = 64;
-
+        
+    camera = new THREE.PerspectiveCamera( 10, window.innerWidth / window.innerHeight, 1, 3500 );
+    camera.position.set( 3, 0.15, 3 );
+    
     //
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0x2BC4A9 );
+    scene.fog = new THREE.Fog( 0x72645b, 17, 1 );
+    
+    // Ground
 
-    //
+    const plane = new THREE.Mesh(
+        new THREE.PlaneGeometry( 40, 40 ),
+        new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 10 } )
+    );
 
-    const light = new THREE.HemisphereLight();
+    plane.rotation.x = - Math.PI / 2;
+    plane.position.y = - 0.5;
+    scene.add( plane );
+
+    plane.receiveShadow = true;
+    
+    // LOADER
+    
+    const loader = new GLTFLoader().setPath( './3dmodels/' );
+    loader.load( 'model-4.glb', function ( gltf ) {
+
+        gltf.scene.traverse( function ( child ) {
+            
+            if ( child.isMesh ) {
+                const material = new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } );
+                const mesh = new THREE.Mesh( geometry, material );
+
+                mesh.position.set( 0, - 0.25, 0.6 );
+                mesh.rotation.set( 0, - Math.PI / 2, 0 );
+                mesh.scale.set( 0.5, 0.5, 0.5 );
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+            }
+        } );
+
+        scene.add( gltf.scene );
+
+    });
+
+    // LIGHTS
+
+    const light = new THREE.HemisphereLight(0x443333, 0x111122);
     scene.add( light );
-
-    //
-
-    const geometry = new THREE.BufferGeometry();
-
-    const indices = [];
-
-    const vertices = [];
-    const normals = [];
-    const colors = [];
-
-    const size = 20;
-    const segments = 10;
-
-    const halfSize = size / 2;
-    const segmentSize = size / segments;
-
-    // generate vertices, normals and color data for a simple grid geometry
-
-    for ( let i = 0; i <= segments; i ++ ) {
-
-        const y = ( i * segmentSize ) - halfSize;
-
-        for ( let j = 0; j <= segments; j ++ ) {
-
-            const x = ( j * segmentSize ) - halfSize;
-
-            vertices.push( x, - y, 0 );
-            normals.push( 0, 0, 1 );
-
-            const r = ( x / size ) + 0.5;
-            const g = ( y / size ) + 0.5;
-
-            colors.push( r, g, 1 );
-
-        }
-
-    }
-
-    // generate indices (data for element array buffer)
-
-    for ( let i = 0; i < segments; i ++ ) {
-
-        for ( let j = 0; j < segments; j ++ ) {
-
-            const a = i * ( segments + 1 ) + ( j + 1 );
-            const b = i * ( segments + 1 ) + j;
-            const c = ( i + 1 ) * ( segments + 1 ) + j;
-            const d = ( i + 1 ) * ( segments + 1 ) + ( j + 1 );
-
-            // generate two faces (triangles) per iteration
-
-            indices.push( a, b, d ); // face one
-            indices.push( b, c, d ); // face two
-
-        }
-
-    }
-
-    //
-
-    geometry.setIndex( indices );
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-    geometry.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
-    geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
-
-    const material = new THREE.MeshPhongMaterial( {
-        side: THREE.DoubleSide,
-        vertexColors: true
-    } );
-
-    mesh = new THREE.Mesh( geometry, material );
-    scene.add( mesh );
-
-    //
+    addShadowedLight( 1, 1, 1, 0xffffff, 1.35 );
+    addShadowedLight( 0.5, 1, - 1, 0xffaa00, 1 );
+    
+    // RENDERER
 
     renderer = new THREE.WebGLRenderer( { antialias: true } );
     renderer.setPixelRatio( window.devicePixelRatio );
     // renderer.setSize( 350, 200 );
     renderer.setSize( window.innerWidth, window.innerHeight );
     
-    // document.body.appendChild( renderer.domElement );
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.shadowMap.enabled = true;
+
     document.getElementById("render").appendChild(renderer.domElement);
 
-    //
+    // world
 
-    // stats = new Stats();
-    // document.body.appendChild( stats.dom );
+    const geometry = new THREE.BufferGeometry();
+    const material = new THREE.MeshPhongMaterial( {
+        side: THREE.DoubleSide,
+        color: 0xffffff, flatShading: true
+    } );
 
-    //
+    const mesh = new THREE.Mesh( geometry, material );
+    mesh.position.x = Math.random() * 1600 - 800;
+    mesh.position.y = 0;
+    mesh.position.z = Math.random() * 1600 - 800;
+    mesh.updateMatrix();
+    mesh.matrixAutoUpdate = false;
+    scene.add( mesh );
+   
+    // CONTROLS
 
-    // const gui = new GUI();
-    // gui.add( material, 'wireframe' );
+    controls = new OrbitControls( camera, renderer.domElement );
+    controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+    controls.dampingFactor = 0.05;
 
+    controls.screenSpacePanning = false;
+
+    controls.minDistance = 200;
+    controls.maxDistance = 100;
+
+    controls.maxPolarAngle = Math.PI / 2;
+    
     //
 
     window.addEventListener( 'resize', onWindowResize );
+
+}
+
+function addShadowedLight( x, y, z, color, intensity ) {
+
+    const directionalLight = new THREE.DirectionalLight( color, intensity );
+    directionalLight.position.set( x, y, z );
+    scene.add( directionalLight );
+
+    directionalLight.castShadow = true;
+
+    const d = 1;
+    directionalLight.shadow.camera.left = - d;
+    directionalLight.shadow.camera.right = d;
+    directionalLight.shadow.camera.top = d;
+    directionalLight.shadow.camera.bottom = - d;
+
+    directionalLight.shadow.camera.near = 1;
+    directionalLight.shadow.camera.far = 4;
+
+    directionalLight.shadow.bias = - 0.002;
 
 }
 
@@ -139,17 +145,13 @@ function animate() {
 
     requestAnimationFrame( animate );
 
+    controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
     render();
-    // stats.update();
 
 }
 
 function render() {
-
-    const time = Date.now() * 0.001;
-
-    mesh.rotation.x = time * 0.25;
-    mesh.rotation.y = time * 0.5;
 
     renderer.render( scene, camera );
 
