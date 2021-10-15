@@ -49,7 +49,7 @@ function init() {
             // use of RoughnessMipmapper is optional
             const roughnessMipmapper = new RoughnessMipmapper( renderer );
 
-            const loader = new GLTFLoader().setPath( '../3dmodels/' );
+            const loader = new GLTFLoader().setPath( './3dmodels/' );
             loader.load( 'model-4.glb', function ( gltf ) {
 
                 gltf.scene.traverse( function ( child ) {
