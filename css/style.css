@@ -214,7 +214,7 @@ footer {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	place-items: center;
-	background-color: var(--grey-color);
+	background-color: var(--secondary-color);
 }
 footer svg {
 	width: var(--size-2);

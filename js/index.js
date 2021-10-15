@@ -10,24 +10,27 @@ animate();
 
 function init() {
         
-    camera = new THREE.PerspectiveCamera( 10, window.innerWidth / window.innerHeight, 1, 3500 );
-    camera.position.set( 3, 0.15, 3 );
+    camera = new THREE.PerspectiveCamera( 
+        50, window.innerWidth / window.innerHeight, 1, 3500 
+        );
+    camera.position.set( 5, 15, 10 );
+
     
     //
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0x2BC4A9 );
-    scene.fog = new THREE.Fog( 0x72645b, 17, 1 );
+    scene.fog = new THREE.Fog( 0x000000, 17, 1 );
     
     // Ground
 
     const plane = new THREE.Mesh(
-        new THREE.PlaneGeometry( 40, 40 ),
-        new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 10 } )
+        new THREE.PlaneGeometry( 80, 80 ),
+        new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } )
     );
 
     plane.rotation.x = - Math.PI / 2;
-    plane.position.y = - 0.5;
+    plane.position.y = - 1.5;
     scene.add( plane );
 
     plane.receiveShadow = true;
@@ -55,12 +58,14 @@ function init() {
 
     });
 
+
+
     // LIGHTS
 
     const light = new THREE.HemisphereLight(0x443333, 0x111122);
     scene.add( light );
-    addShadowedLight( 1, 1, 1, 0xffffff, 1.35 );
-    addShadowedLight( 0.5, 1, - 1, 0xffaa00, 1 );
+    addShadowedLight( 1, 1, 1, 0xffffff, 2.35 );
+    addShadowedLight( 0.5, 1, - 1, 0x9F9FFF, 1 );
     
     // RENDERER
 
@@ -94,20 +99,49 @@ function init() {
 
     controls = new OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-    controls.dampingFactor = 0.05;
-
-    controls.screenSpacePanning = false;
-
-    controls.minDistance = 200;
-    controls.maxDistance = 100;
-
+    controls.dampingFactor = 0.01;
+    controls.screenSpacePanning = true;
     controls.maxPolarAngle = Math.PI / 2;
+    controls.enabled = false;
     
-    //
-
+    
+    // // Event listeners
+    // controls.addEventListener("change", render, false);
+    //     //
+    
+    // // Listeners
+    // document.addEventListener("mousewheel", onMouseWheel, false);
+    document.addEventListener("mousedown", mouseDown, true);
+    document.addEventListener("mouseup", onMouseUp, true);
+    // document.addEventListener("onMouseWheel", onMouseWheel, false);
+    document.addEventListener("mousemove", onMouseMove, false);
+    
+    
+    
     window.addEventListener( 'resize', onWindowResize );
-
+    
 }
+
+// function onMouseWheel() {
+//     controls.enabled = false;
+//     console.log("scroll");
+// }
+
+function mouseDown() {
+    controls.enabled = true;
+    console.log("cliccc");
+}
+
+function onMouseMove() {
+    controls.enabled = false;
+    console.log("cliccc");
+}
+function onMouseUp() {
+    controls.enabled = true;
+    console.log("cliccc");
+}
+
+
 
 function addShadowedLight( x, y, z, color, intensity ) {
 
@@ -146,6 +180,8 @@ function animate() {
     requestAnimationFrame( animate );
 
     controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
+    
 
     render();
 
