@@ -209,6 +209,11 @@ small {
 	font-size: var(--size-0);
 }
 
+#btn-mover {
+	position: absolute;
+	right: 0;
+}
+
 footer {
 	color: var(--black-color);
 	display: grid;

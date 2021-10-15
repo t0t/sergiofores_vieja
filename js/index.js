@@ -20,7 +20,7 @@ function init() {
     //
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0x2BC4A9 );
+    scene.background = new THREE.Color( 0xFEFF9F );
     scene.fog = new THREE.Fog( 0x000000, 17, 1 );
     
     // Ground
@@ -103,44 +103,48 @@ function init() {
     controls.dampingFactor = 0.01;
     controls.screenSpacePanning = true;
     controls.maxPolarAngle = Math.PI / 2;
-    controls.enabled = false;
+    // controls.enabled = false;
     
     
     // // Event listeners
     // controls.addEventListener("change", render, false);
-    //     //
+    //
     
     // // Listeners
     // document.addEventListener("mousewheel", onMouseWheel, false);
-    document.addEventListener("mousedown", mouseDown, true);
-    document.addEventListener("mouseup", onMouseUp, true);
+    // document.addEventListener("mousedown", mouseDown, true);
+    // document.addEventListener("mouseup", onMouseUp, true);
     // document.addEventListener("onMouseWheel", onMouseWheel, false);
-    document.addEventListener("mousemove", onMouseMove, false);
-    
-    
+    // document.addEventListener("mousemove", onMouseMove, false);
     
     window.addEventListener( 'resize', onWindowResize );
     
 }
 
-// function onMouseWheel() {
-//     controls.enabled = false;
-//     console.log("scroll");
+const boton = document.getElementById("btn-mover");
+boton.addEventListener("mousedown", btnMover, true);
+boton.addEventListener("mouseup", activeScroll, false);
+
+function btnMover() {
+    controls.enabled = true;
+}
+function activeScroll() {
+    controls.enabled = false;
+}
+
+// function mouseDown() {
+//     controls.enabled = true;
+//     console.log("cliccc");
 // }
 
-function mouseDown() {
-    controls.enabled = true;
-    console.log("cliccc");
-}
-
-function onMouseMove() {
-    controls.enabled = false;
-    console.log("cliccc");
-}
-function onMouseUp() {
-    controls.enabled = true;
-    console.log("cliccc");
-}
+// function onMouseMove() {
+//     controls.enabled = false;
+//     console.log("cliccc");
+// }
+// function onMouseUp() {
+//     controls.enabled = true;
+//     console.log("cliccc");
+// }
 
 
 
