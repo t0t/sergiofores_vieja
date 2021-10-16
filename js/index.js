@@ -10,11 +10,9 @@ init();
 animate();
 
 function init() {
-  camera = new THREE.PerspectiveCamera(
-    5,
+  camera = new THREE.PerspectiveCamera( 5,
     window.innerWidth / window.innerHeight,
-    3,
-    3500
+    3, 3500
   );
   camera.position.set(10, 5, 10);
   
@@ -82,7 +80,7 @@ function init() {
   // CONTROLS
 
   controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+  controls.enableDamping = true;
   controls.dampingFactor = 0.01;
   controls.screenSpacePanning = true;
   controls.maxPolarAngle = Math.PI / 2.1;
@@ -96,6 +94,10 @@ function init() {
 // Anula interferencia con scroll html
 const boton = document.getElementById("btn-mover");
 boton.addEventListener("click", activarControl, true);
+
+// Mobil
+boton.addEventListener("touchmove", activarControl, false);
+
 
 function activarControl() {
   if (boton.checked == true) {
