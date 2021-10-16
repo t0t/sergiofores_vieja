@@ -151,7 +151,10 @@ html {
 	--tertiary-color: #9F9FFF;
 	--quaternary-color: #FFFF9F;
 	--black-color: black;
-	--grey-color: grey;
+	--grey-color: #E8E8E8;
+	--grey-color-2: #a0a0a0;
+	--grey-color-3: #6f6f6f;
+	--grey-color-4: #2e2e2e;
 	--bold: 700;
 	--normal: 400;
 	--light: 300;
@@ -221,25 +224,22 @@ small {
 }
 
 a {
-	color: var(--tertiary-color);
+	color: var(--black-color);
 	text-decoration: none;
 }
 
 a:hover {
-	text-decoration: underline;
+	/* text-decoration: underline; */
 }
 
-#btn-mover {
-	position: absolute;
-	right: 0;
-}
 
-footer {
+
+.footer-site {
 	color: var(--black-color);
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	/* grid-template-columns: 1fr 1fr; */
 	place-items: center;
-	background-color: var(--secondary-color);
+	background-color: var(--grey-color-2);
 }
 
 footer svg {
@@ -345,6 +345,15 @@ footer svg {
 button {
 	cursor: pointer;
 	text-transform: uppercase;
+	padding: var(--size-1);
+	background-color: transparent;
+	border: 2px solid var(--black-color);
+}
+
+button:hover {
+	color: var(--primary-color);
+	background-color: var(--black-color);
+
 }
 
 input:checked+.slider {
@@ -408,6 +417,10 @@ input:checked+.slider:before {
 	border-radius: 50%;
 }
 
+#btn-mover {
+	position: absolute;
+	right: 0;
+}
 
 /* LOGO */
 .logo {
@@ -455,4 +468,40 @@ img {
 /* Helpers */
 .rounded {
 	border-radius: 50%;
+}
+
+/* Social Links */
+.social-links {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: var(--size-1);
+}
+.social-links path,
+.social-links circle {
+	fill: var(--grey-color-3);
+}
+.social-links a:hover path {
+	fill: var(--grey-color-1);
+}
+
+/* Contact me */
+.contact-me {
+	display: grid;
+	place-items: center;
+	gap: var(--size-1);
+}
+
+.btn-whatsapp {
+	letter-spacing: 1px;
+	/* font-weight: var(--bold); */
+	text-transform: uppercase;
+	padding: var(--size-1);
+	background-color: transparent;
+	border: 2px solid var(--black-color);
+}
+
+.btn-whatsapp:hover {
+	color: var(--secondary-color);
+	background-color: var(--black-color);
+
 }
