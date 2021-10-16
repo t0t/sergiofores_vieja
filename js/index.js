@@ -96,7 +96,7 @@ const boton = document.getElementById("btn-mover");
 boton.addEventListener("click", activarControl, true);
 
 // Mobil
-boton.addEventListener("touchmove", activarControl, false);
+boton.addEventListener("touchstart", activarControl, false);
 
 
 function activarControl() {
