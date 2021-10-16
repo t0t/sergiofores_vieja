@@ -77,6 +77,7 @@ function init() {
 
   document.getElementById("render").appendChild(renderer.domElement);
 
+
   // CONTROLS
 
   controls = new OrbitControls(camera, renderer.domElement);
@@ -99,11 +100,14 @@ boton.addEventListener("click", activarControl, true);
 boton.addEventListener("touchstart", activarControl, false);
 
 
-function activarControl() {
+function activarControl(e) {
   if (boton.checked == true) {
     controls.enabled = true;
+    renderer.domElement.classList.remove("deshabilitar");
+    console.log(e);
   } else {
     controls.enabled = false;
+    renderer.domElement.classList.add("deshabilitar");
   }
 }
 

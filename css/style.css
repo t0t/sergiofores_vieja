@@ -431,6 +431,10 @@ input:checked+.slider:before {
 	position: absolute;
 	right: 0;
 }
+#render canvas.deshabilitar  {
+	touch-action: auto;
+	display: none;
+}
 
 /* LOGO */
 .logo {
@@ -515,3 +519,5 @@ img {
 	background-color: var(--black-color);
 
 }
+
+
