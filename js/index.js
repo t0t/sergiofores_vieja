@@ -97,14 +97,13 @@ const boton = document.getElementById("btn-mover");
 boton.addEventListener("click", activarControl, true);
 
 // Mobil
-boton.addEventListener("touchstart", activarControl, false);
+boton.addEventListener("touchstart", activarControl, true);
 
 
-function activarControl(e) {
+function activarControl() {
   if (boton.checked == true) {
     controls.enabled = true;
     renderer.domElement.classList.remove("deshabilitar");
-    console.log(e);
   } else {
     controls.enabled = false;
     renderer.domElement.classList.add("deshabilitar");

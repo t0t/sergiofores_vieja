@@ -434,7 +434,7 @@ input:checked+.slider:before {
 
 /* JS - Deshabilita touch en mobil */
 .deshabilitar  {
-	touch-action: pan-up !important;
+	touch-action: auto !important;
 }
 
 /* LOGO */
