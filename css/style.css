@@ -183,6 +183,7 @@ body {
 	font-size: var(--size-1);
 	font-weight: var(--normal);
 	/* overscroll-behavior: none; */
+	/* width: 100%; */
 }
 
 main {
@@ -191,6 +192,15 @@ main {
 
 header {
 	background-color: var(--quaternary-color);
+}
+
+.section--base {
+	padding: var(--size-2);
+}
+@media screen and (min-width: 750px) {
+	.section--base {
+		padding: var(--size-4);
+	}
 }
 
 @media screen and (min-width: 750px) {
