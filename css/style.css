@@ -152,6 +152,9 @@ html {
     --quaternary-color: #FFFF9F;
     --black-color: black;
     --grey-color: grey;
+    --bold: 700;
+    --normal: 400;
+    --light: 300;
     --size-0: 0.61rem;
 	--size-1: 1rem;
 	--size-2: 1.6rem;
@@ -163,46 +166,64 @@ html {
 
 #render {}
 
-body {
-	margin: 0;
-	background-color: var(--secondary-color);
-	color: var(--grey-color);
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: var(--size-1);
-	/* line-height: var(--size-2); */
-	/* overscroll-behavior: none; */
-}
-
 html {
 	font-size: 18px;
 	letter-spacing: 1px;
 	font-weight: 300;
 }
+body {
+	margin: 0;
+	background-color: var(--secondary-color);
+	color: var(--black-color);
+	font-family: 'Montserrat',Arial, Helvetica, sans-serif;
+	font-size: var(--size-1);
+	/* line-height: var(--size-2); */
+	font-weight: var(--normal);
+	/* overscroll-behavior: none; */
+}
+
 
 main {
 	font-size: var(--size-1);
 }
 
 header {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	place-items: center;
 	background-color: var(--quaternary-color);
+}
+@media screen and (min-width: 750px) {
+	header {
+		display: grid;
+		/* grid-template-areas: 
+		"avatar hhlogo nombre slogan"
+		; */
+		grid-template-columns: 1fr;
+		/* grid-template-rows: 1fr 1fr; */
+		place-items: center;
+	}
+	/* header:nth-child(1) {
+		grid-area: avatar;
+		background-color: #fff;
+	}
+	header:nth-child(2) {
+		grid-area: avatar;
+		background-color: blue;
+	} */
 }
 
 h1 {
 	font-size: var(--size-3);
-	font-weight: var(--negrita);
+	font-weight: var(--bold);
 	line-height: 1.2;
 }
 
 h2,
 h3 {
 	font-size: var(--size-2);
+	line-height: initial;
 }
 
 dt {
-	font-weight: var(--negrita);
+	font-weight: var(--light);
 }
 
 small {
@@ -286,12 +307,20 @@ button {
 	padding-right: var(--size-4);
 }
 
+.pb-1 {
+	padding-bottom: var(--size-1);
+}
+
 .pb-3 {
 	padding-bottom: var(--size-3);
 }
 
 .pb-4 {
 	padding-bottom: var(--size-4);
+}
+
+.pt-1 {
+	padding-top: var(--size-1);
 }
 
 .pt-4 {
@@ -391,6 +420,26 @@ button {
 }
 
 
+img {
+	max-width: inherit;
+}
+
+.actividad {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: var(--size-4);
+}
+.actividad__obra {
+
+}
+.actividad__talleres {
+
+}
   /* input[type="checkbox"]:checked {
 	cursor: grab;
    } */
+
+/* Helpers */
+.rounded {
+	border-radius: 50%;
+}

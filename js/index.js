@@ -17,6 +17,7 @@ function init() {
     3500
   );
   camera.position.set(10, 5, 10);
+  
 
   //
 
@@ -86,7 +87,7 @@ function init() {
   controls.screenSpacePanning = true;
   controls.maxPolarAngle = Math.PI / 2.1;
     // controls.autoRotate = true;
-  // controls.enabled = false;
+  controls.enabled = false;
 
   window.addEventListener("resize", onWindowResize);
 
