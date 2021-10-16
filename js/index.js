@@ -98,6 +98,7 @@ boton.addEventListener("click", activarControl, true);
 
 // Mobil
 boton.addEventListener("touchstart", activarControl, true);
+renderer.domElement.classList.add("deshabilitar");
 
 
 function activarControl() {
