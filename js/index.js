@@ -103,11 +103,11 @@ boton.addEventListener("click", activarControl, true);
 function activarControl(e) {
   if (boton.checked == true) {
     controls.enabled = true;
-    // renderer.domElement.classList.remove("deshabilitar");
-    renderer.domElement.classList.add("deshabilitar");
+    renderer.domElement.classList.remove("deshabilitar");
     console.log(e);
   } else {
     controls.enabled = false;
+    renderer.domElement.classList.add("deshabilitar");
   }
 }
 
