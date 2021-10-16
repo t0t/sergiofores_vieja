@@ -431,9 +431,10 @@ input:checked+.slider:before {
 	position: absolute;
 	right: 0;
 }
-#render canvas.deshabilitar  {
-	touch-action: auto;
-	display: none;
+
+/* JS - Deshabilita touch en mobil */
+.deshabilitar  {
+	touch-action: unset !important;
 }
 
 /* LOGO */
