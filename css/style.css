@@ -167,8 +167,6 @@ html {
 	--size-6: 10.7rem;
 }
 
-#render {}
-
 html {
 	font-size: 18px;
 	/* letter-spacing: 1px; */
@@ -224,6 +222,9 @@ h3 {
 	line-height: var(--size-3);
 	/* font-weight: var(--normal); */
 }
+@media screen and ( ) {
+	
+}
 
 p {
 	line-height: var(--size-2);
@@ -237,12 +238,6 @@ a {
 	color: var(--black-color);
 	text-decoration: none;
 }
-
-a:hover {
-	/* text-decoration: underline; */
-}
-
-
 
 .footer-site {
 	color: var(--black-color);
@@ -461,11 +456,12 @@ img {
 
 .actividad {
 	display: grid;
-	gap: var(--size-4);
+	gap: var(--size-2);
 }
 
 @media screen and (min-width: 800px) {
 	.actividad {
+		gap: var(--size-4);
 		grid-template-columns: 1fr 1fr;
 	}
 }
