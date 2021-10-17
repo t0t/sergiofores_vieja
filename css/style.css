@@ -175,13 +175,19 @@ html {
 
 body {
 	margin: 0;
-	background-color: var(--grey-color-2);
+	/* background-color: var(--grey-color-2); */
 	color: var(--black-color);
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	font-size: var(--size-1);
 	font-weight: var(--normal);
 	/* overscroll-behavior: none; */
 	/* width: 100%; */
+	background: rgb(255,255,159);
+background: linear-gradient(
+	180deg, 
+	var(--quaternary-color) 20%,
+	var(--secondary-color) 70%,
+	var(--grey-color-2) 80%);
 }
 
 main {
@@ -213,7 +219,7 @@ h1 {
 	font-size: var(--size-3);
 	font-weight: var(--bold);
 	/* line-height: 1.2; */
-	color: var(--primary-color);
+	/* color: var(--primary-color); */
 }
 
 h2,
