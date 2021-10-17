@@ -14,7 +14,7 @@ function init() {
     window.innerWidth / window.innerHeight,
     3, 3500
   );
-  camera.position.set(10, 5, 10);
+  camera.position.set(1, 2.7, -9);
   
   //
 
@@ -62,7 +62,7 @@ function init() {
 
   const light = new THREE.HemisphereLight(0xffffff, 0x111122);
   scene.add(light);
-  addShadowedLight(0.05, 0.1, 1, 0xffffff, 2.5);
+  addShadowedLight(0.05, 0.1, 1, 0xffffff, 3.5);
   addShadowedLight(0.2, 0.9, 3, 0xffffff, 1.5);
 
   // RENDERER
