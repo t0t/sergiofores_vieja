@@ -16,18 +16,17 @@ function init() {
   );
   camera.position.set(10, 5, 10);
   
-
   //
 
   scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xfeff9f);
+  // scene.background = new THREE.Color(0xa0a0a0);
 
   // Ground
 
   const plane = new THREE.Mesh(
     new THREE.PlaneGeometry(2, 2),
     new THREE.MeshPhongMaterial({
-      color: 0xFF6874,
+      color: 0x000000,
       specular: 0x2bc4a9,
       shininess: 50,
     })
@@ -63,12 +62,15 @@ function init() {
 
   const light = new THREE.HemisphereLight(0xffffff, 0x111122);
   scene.add(light);
-  addShadowedLight(0.05, 0.1, 1, 0x9F9FFF, 2.5);
+  addShadowedLight(0.05, 0.1, 1, 0xffffff, 2.5);
   addShadowedLight(0.2, 0.9, 3, 0xffffff, 1.5);
 
   // RENDERER
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer = new THREE.WebGLRenderer({ 
+    antialias: true,
+    alpha: true
+   });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 

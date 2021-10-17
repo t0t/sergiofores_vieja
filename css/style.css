@@ -175,7 +175,7 @@ html {
 
 body {
 	margin: 0;
-	background-color: var(--secondary-color);
+	background-color: var(--grey-color-2);
 	color: var(--black-color);
 	font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 	font-size: var(--size-1);
@@ -245,6 +245,10 @@ a {
 	/* grid-template-columns: 1fr 1fr; */
 	place-items: center;
 	background-color: var(--grey-color-2);
+	background-image: url("../img/avatar.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: bottom left;
 }
 
 footer svg {
@@ -327,6 +331,14 @@ footer svg {
 
 .m-4 {
 	margin: var(--size-4);
+}
+
+.mb-3 {
+	margin-bottom: var(--size-3);
+}
+
+.mb-4 {
+	margin-bottom: var(--size-4);
 }
 
 .vh100 {
@@ -466,8 +478,7 @@ img {
 	}
 }
 
-.actividad__obra {}
-
+.actividad__obra,
 .actividad__talleres {
 	max-width: 375px;
 }
@@ -499,10 +510,16 @@ img {
 .contact-me {
 	display: grid;
 	place-items: center;
-	gap: var(--size-1);
+}
+@media screen and (min-width: 500px) {
+	.contact-me {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--size-1);
+	}
 }
 
-.btn-whatsapp {
+.btn-whatsapp,
+.btn-telegram {
 	letter-spacing: 1px;
 	/* font-weight: var(--bold); */
 	text-transform: uppercase;
@@ -512,9 +529,14 @@ img {
 }
 
 .btn-whatsapp:hover {
-	color: var(--secondary-color);
-	background-color: var(--black-color);
-
+	/* color: var(--secondary-color); */
+	background-color: var(--tertiary-color);
+	border-color: var(--tertiary-color);
+}
+.btn-telegram:hover {
+	/* color: var(--secondary-color); */
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
 }
 
 
