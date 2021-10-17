@@ -476,6 +476,12 @@ img {
 	display: grid;
 	gap: var(--size-2);
 }
+.actividad a {
+	/* font-size: var(--size-0); */
+	font-style: italic;
+	text-decoration: underline;
+}
+
 
 @media screen and (min-width: 800px) {
 	.actividad {
